@@ -1,0 +1,83 @@
+@import 'variables';
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  padding: 0 2rem;
+}
+
+.form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  max-width: 15rem;
+  width: 100%;
+}
+
+.input {
+  outline: 0;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  font-size: 3rem;
+  text-align: center;
+  padding: 1rem 2rem;
+  width: 100%;
+  transition: all 0.2s ease-in-out;
+}
+
+.input::placeholder {
+  color: #dbdbdb;
+}
+
+.input:focus {
+  box-shadow: 0px 3px 7px 0px #00000021;
+}
+
+.button {
+  background-color: #ececec;
+  border: none;
+  border-radius: 1rem;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  align-self: normal;
+}
+
+.button:hover {
+  background-color: #dfdfdf;
+}
+
+.error-msg {
+  display: none;
+  position: absolute;
+  top: -2rem;
+  color: #ff0000;
+  font-size: 1rem;
+
+  &_active {
+    display: block;
+  }
+}
