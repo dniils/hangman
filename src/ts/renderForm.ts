@@ -1,6 +1,16 @@
 import { el } from './elements'
 import { checkInput } from './checkInput'
 
+function showErrorMessage(): void {
+  el.errorMsgEl.textContent = 'Please, try English letter'
+  el.errorMsgEl.classList.add('error-msg_active')
+}
+
+function hideErrorMessage(): void {
+  el.errorMsgEl.textContent = ''
+  el.errorMsgEl.classList.remove('error-msg_active')
+}
+
 export function renderForm(): void {
   const body = document.querySelector('body')
 
@@ -30,14 +40,4 @@ export function renderForm(): void {
       ? showErrorMessage()
       : hideErrorMessage()
   })
-}
-
-function showErrorMessage(): void {
-  el.errorMsgEl.textContent = 'Please, try English letter'
-  el.errorMsgEl.classList.add('error-msg_active')
-}
-
-function hideErrorMessage(): void {
-  el.errorMsgEl.textContent = ''
-  el.errorMsgEl.classList.remove('error-msg_active')
 }

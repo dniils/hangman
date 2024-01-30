@@ -1,1 +1,1 @@
-export const wordToGuess = 'somewordhere'
+export const wordToGuess = 'world'
