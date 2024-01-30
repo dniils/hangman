@@ -1,1 +1,1 @@
-export const wordToGuess = 'world'
+export const wordToGuess = 'world'.split('')

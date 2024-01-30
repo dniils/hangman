@@ -1,12 +1,10 @@
 import { el } from './elements'
 
-export function renderWord(word: string) {
-  const wordArr = word.split('')
-
+export function renderWord(word: string[]) {
   const wordContainerEl = document.createElement('ul')
   wordContainerEl.classList.add('word')
 
-  wordArr.forEach((letter) => {
+  word.forEach((letter) => {
     const letterElWrapper = document.createElement('li')
     const letterElAfterEl = document.createElement('span')
     const letterEl = document.createElement('span')

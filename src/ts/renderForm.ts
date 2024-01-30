@@ -1,5 +1,6 @@
 import { el } from './elements'
 import { checkInput } from './checkInput'
+import { wordToGuess } from './api'
 
 function showErrorMessage(): void {
   el.errorMsgEl.textContent = 'Please, try English letter'
@@ -9,6 +10,28 @@ function showErrorMessage(): void {
 function hideErrorMessage(): void {
   el.errorMsgEl.textContent = ''
   el.errorMsgEl.classList.remove('error-msg_active')
+}
+
+function openLetter(word: string[]): boolean {
+  // TODO: check for already opened letters
+  const wordLetters = Array.from(document.querySelectorAll('.word__letter'))
+  const letterValue = el.inputEl.value
+  const matches: boolean[] = []
+
+  word.forEach((letter, index) => {
+    if (letterValue === letter) {
+      wordLetters[index].textContent = letter
+      matches.push(true)
+    } else {
+      matches.push(false)
+    }
+  })
+
+  if (matches.some((el) => el === true)) {
+    return true
+  } else {
+    return false
+  }
 }
 
 export function renderForm(): void {
@@ -24,9 +47,19 @@ export function renderForm(): void {
     e.preventDefault()
 
     const inputIsCorrect = checkInput(el.inputEl.value)
-    el.inputEl.value && !inputIsCorrect
-      ? showErrorMessage()
-      : hideErrorMessage()
+
+    if (el.inputEl.value && !inputIsCorrect) {
+      showErrorMessage()
+    } else {
+      const failedAttempt = !openLetter(wordToGuess)
+      hideErrorMessage()
+      el.inputEl.value = ''
+
+      if (failedAttempt) {
+        // count missed attempt
+        console.log('wrong guess!')
+      }
+    }
   })
 
   el.inputEl.addEventListener('focus', () => {

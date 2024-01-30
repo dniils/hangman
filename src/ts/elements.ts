@@ -20,12 +20,16 @@ function createElements() {
   const errorMsgEl = document.createElement('span')
   errorMsgEl.classList.add('error-msg')
 
+  const attemptsBarEl = document.createElement('ul')
+  attemptsBarEl.classList.add('attempts')
+
   return {
     containerEl,
     formEl,
     inputEl,
     buttonEl,
     errorMsgEl,
+    attemptsBarEl,
   }
 }
 
