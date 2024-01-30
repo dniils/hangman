@@ -1,6 +1,9 @@
 import { el } from './elements'
 import { checkInput } from './checkInput'
 import { wordToGuess } from './api'
+import { MAX_ATTEMPTS } from './constants'
+
+let failedAttempts = 0
 
 function showErrorMessage(): void {
   el.errorMsgEl.textContent = 'Please, try English letter'
@@ -34,6 +37,48 @@ function openLetter(word: string[]): boolean {
   }
 }
 
+function checkGameStatus() {
+  const word = Array.from(document.querySelectorAll('.word__letter'))
+    .map((el) => el.textContent)
+    .join('')
+
+  if (failedAttempts === MAX_ATTEMPTS) {
+    console.log('you lost')
+    handleGameLoss()
+  } else if (word === wordToGuess.join('')) {
+    console.log('you won')
+    handleGameWin()
+  }
+}
+
+function handleGameEnd(): void {
+  el.inputEl.disabled = true
+  el.buttonEl.textContent = 'new game'
+}
+
+function handleGameLoss(): void {
+  handleGameEnd()
+  el.inputEl.value = '💀'
+}
+
+function handleGameWin(): void {
+  handleGameEnd()
+  el.inputEl.value = '😍'
+}
+
+function handleWrongAnswer(): void {
+  failedAttempts += 1
+
+  const attemptLiEls = Array.from(document.querySelectorAll('.attempts__item'))
+
+  for (const li of attemptLiEls) {
+    if (!li.classList.contains('attempts__item_active')) {
+      li.classList.add('attempts__item_active')
+      break
+    }
+  }
+}
+
 export function renderForm(): void {
   const body = document.querySelector('body')
 
@@ -54,10 +99,11 @@ export function renderForm(): void {
       const failedAttempt = !openLetter(wordToGuess)
       hideErrorMessage()
       el.inputEl.value = ''
+      checkGameStatus()
 
       if (failedAttempt) {
-        // count missed attempt
         console.log('wrong guess!')
+        handleWrongAnswer()
       }
     }
   })
