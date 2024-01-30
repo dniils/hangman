@@ -3,7 +3,10 @@ import { checkInput } from './checkInput'
 import { wordToGuess } from './api'
 import { MAX_ATTEMPTS } from './constants'
 
-let failedAttempts = 0
+const state = {
+  failedAttempts: 0,
+  gameStatus: 0,
+}
 
 function showErrorMessage(): void {
   el.errorMsgEl.textContent = 'Please, try English letter'
@@ -42,7 +45,7 @@ function checkGameStatus() {
     .map((el) => el.textContent)
     .join('')
 
-  if (failedAttempts === MAX_ATTEMPTS) {
+  if (state.failedAttempts === MAX_ATTEMPTS) {
     console.log('you lost')
     handleGameLoss()
   } else if (word === wordToGuess.join('')) {
@@ -54,6 +57,7 @@ function checkGameStatus() {
 function handleGameEnd(): void {
   el.inputEl.disabled = true
   el.buttonEl.textContent = 'new game'
+  state.gameStatus = 1
 }
 
 function handleGameLoss(): void {
@@ -67,7 +71,7 @@ function handleGameWin(): void {
 }
 
 function handleWrongAnswer(): void {
-  failedAttempts += 1
+  state.failedAttempts += 1
 
   const attemptLiEls = Array.from(document.querySelectorAll('.attempts__item'))
 
@@ -84,7 +88,7 @@ export function renderForm(): void {
 
   el.formEl.append(el.errorMsgEl, el.inputEl, el.buttonEl)
   el.containerEl.append(el.formEl)
-  body?.appendChild(el.containerEl)
+  body?.prepend(el.containerEl)
 
   el.inputEl.focus()
 
@@ -96,7 +100,7 @@ export function renderForm(): void {
     if (el.inputEl.value && !inputIsCorrect) {
       showErrorMessage()
     } else {
-      const failedAttempt = !openLetter(wordToGuess)
+      const failedAttempt = !openLetter(wordToGuess) && el.inputEl.value
       hideErrorMessage()
       el.inputEl.value = ''
       checkGameStatus()
