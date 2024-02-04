@@ -2,20 +2,19 @@ import { el } from './elements'
 import { checkInput } from './checkInput'
 import { wordToGuess } from './api'
 import { MAX_ATTEMPTS } from './constants'
-
-const state = {
-  failedAttempts: 0,
-  gameStatus: 0,
-}
+import { restartGame } from './restartGame'
+import { state } from './state'
 
 function showErrorMessage(): void {
   el.errorMsgEl.textContent = 'Please, try English letter'
   el.errorMsgEl.classList.add('error-msg_active')
+  el.inputEl.classList.add('input_error')
 }
 
 function hideErrorMessage(): void {
   el.errorMsgEl.textContent = ''
   el.errorMsgEl.classList.remove('error-msg_active')
+  el.inputEl.classList.remove('input_error')
 }
 
 function openLetter(word: string[]): boolean {
@@ -56,22 +55,31 @@ function checkGameStatus() {
 
 function handleGameEnd(): void {
   el.inputEl.disabled = true
-  el.buttonEl.textContent = 'new game'
+  el.buttonEl.textContent = 'New game'
+  el.errorMsgEl.classList.remove('error-msg_active')
   state.gameStatus = 1
 }
 
 function handleGameLoss(): void {
-  handleGameEnd()
-  el.inputEl.value = '💀'
+  if (state.gameStatus) {
+    restartGame()
+  } else {
+    handleGameEnd()
+    el.inputEl.value = '💀'
+  }
 }
 
 function handleGameWin(): void {
-  handleGameEnd()
-  el.inputEl.value = '😍'
+  if (state.gameStatus) {
+    restartGame()
+  } else {
+    handleGameEnd()
+    el.inputEl.value = '😍'
+  }
 }
 
 function handleWrongAnswer(): void {
-  state.failedAttempts += 1
+  state.failedAttempts++
 
   const attemptLiEls = Array.from(document.querySelectorAll('.attempts__item'))
 
@@ -86,7 +94,8 @@ function handleWrongAnswer(): void {
 export function renderForm(): void {
   const body = document.querySelector('body')
 
-  el.formEl.append(el.errorMsgEl, el.inputEl, el.buttonEl)
+  el.inputWrapperEl.append(el.errorMsgEl, el.inputEl)
+  el.formEl.append(el.inputWrapperEl, el.buttonEl)
   el.containerEl.append(el.formEl)
   body?.prepend(el.containerEl)
 
@@ -97,19 +106,22 @@ export function renderForm(): void {
 
     const inputIsCorrect = checkInput(el.inputEl.value)
 
-    if (el.inputEl.value && !inputIsCorrect) {
-      showErrorMessage()
-    } else {
-      const failedAttempt = !openLetter(wordToGuess) && el.inputEl.value
-      hideErrorMessage()
-      el.inputEl.value = ''
-      checkGameStatus()
+    if (el.inputEl.value) {
+      if (inputIsCorrect) {
+        const failedAttempt = !openLetter(wordToGuess) && el.inputEl.value
+        hideErrorMessage()
+        el.inputEl.value = ''
 
-      if (failedAttempt) {
-        console.log('wrong guess!')
-        handleWrongAnswer()
+        if (failedAttempt) {
+          console.log('wrong guess!')
+          handleWrongAnswer()
+        }
+      } else {
+        showErrorMessage()
       }
     }
+
+    checkGameStatus()
   })
 
   el.inputEl.addEventListener('focus', () => {

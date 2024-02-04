@@ -1,9 +1,6 @@
 import { el } from './elements'
 
 export function renderWord(word: string[]) {
-  const wordContainerEl = document.createElement('ul')
-  wordContainerEl.classList.add('word')
-
   word.forEach(() => {
     const letterElWrapper = document.createElement('li')
     const letterElAfterEl = document.createElement('span')
@@ -13,8 +10,8 @@ export function renderWord(word: string[]) {
     letterEl.classList.add('word__letter')
 
     letterElWrapper.append(letterEl, letterElAfterEl)
-    wordContainerEl.appendChild(letterElWrapper)
+    el.wordContainerEl.appendChild(letterElWrapper)
   })
 
-  el.containerEl.prepend(wordContainerEl)
+  el.containerEl.insertBefore(el.wordContainerEl, el.formEl)
 }

@@ -20,8 +20,14 @@ function createElements() {
   const errorMsgEl = document.createElement('span')
   errorMsgEl.classList.add('error-msg')
 
+  const inputWrapperEl = document.createElement('div')
+  inputWrapperEl.classList.add('input-wrapper')
+
   const attemptsBarEl = document.createElement('ul')
   attemptsBarEl.classList.add('attempts')
+
+  const wordContainerEl = document.createElement('ul')
+  wordContainerEl.classList.add('word')
 
   return {
     containerEl,
@@ -29,7 +35,9 @@ function createElements() {
     inputEl,
     buttonEl,
     errorMsgEl,
+    inputWrapperEl,
     attemptsBarEl,
+    wordContainerEl,
   }
 }
 

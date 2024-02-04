@@ -51,14 +51,26 @@
   padding: 1rem 2rem;
   width: 100%;
   transition: all 0.2s ease-in-out;
+
+  &:focus {
+    box-shadow: 0px 3px 7px 0px #00000021;
+  }
+
+  &::placeholder {
+    color: #ececec;
+  }
+
+  &_error {
+    border: 1px solid #cd5c5c;
+  }
+
+  &_error:focus {
+    box-shadow: 0px 3px 7px 0px #cd5c5c54;
+  }
 }
 
-.input::placeholder {
-  color: #ececec;
-}
-
-.input:focus {
-  box-shadow: 0px 3px 7px 0px #00000021;
+.input-wrapper {
+  position: relative;
 }
 
 .button {
@@ -69,11 +81,11 @@
   padding: 1rem 2rem;
   font-size: 1rem;
   align-self: normal;
-}
 
-.button:enabled:hover {
-  cursor: pointer;
-  background-color: #dfdfdf;
+  &:enabled:hover {
+    cursor: pointer;
+    background-color: #dfdfdf;
+  }
 }
 
 .button:disabled,
@@ -85,9 +97,14 @@
 .error-msg {
   display: none;
   position: absolute;
-  top: -2rem;
+  top: -0.8rem;
+  left: 50%;
+  transform: translateX(-50%);
   color: #cd5c5c;
   font-size: 1rem;
+  text-wrap: nowrap;
+  background-color: #fff;
+  padding: 0 0.5rem;
 
   &_active {
     display: block;
