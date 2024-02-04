@@ -130,6 +130,10 @@
     font-family: 'Fira Code', monospace;
     width: 1rem;
     min-height: 3rem;
+
+    &_unguessed {
+      color: #ccc;
+    }
   }
 
   &__letter-after {

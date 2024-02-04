@@ -28,6 +28,9 @@ function openLetter(word: string): boolean {
     if (letterValue === letter) {
       wordLetters[index].textContent = letter
       matches.push(true)
+      if (!state.guessedLetters.includes(letter)) {
+        state.guessedLetters.push(letter)
+      }
       playSound(el.correctAnswerAudioEl)
     } else {
       matches.push(false)
@@ -39,6 +42,22 @@ function openLetter(word: string): boolean {
   } else {
     return false
   }
+}
+
+function colorUnguessedLetter(el: HTMLSpanElement) {
+  el.classList.add('word__letter_unguessed')
+}
+
+function showWord(): void {
+  const wordLetters: HTMLSpanElement[] = Array.from(
+    document.querySelectorAll('.word__letter')
+  )
+  state.wordToGuess?.split('').forEach((letter, index) => {
+    wordLetters[index].textContent = letter
+    if (!state.guessedLetters.includes(letter)) {
+      colorUnguessedLetter(wordLetters[index])
+    }
+  })
 }
 
 function checkGameStatus() {
@@ -67,6 +86,7 @@ function handleGameLoss(): void {
     handleGameEnd()
     el.inputEl.value = '💀'
     playSound(el.loseAudioEl)
+    showWord()
   }
 }
 
@@ -107,7 +127,7 @@ export function renderForm(): void {
 
   el.formEl.addEventListener('submit', (e) => {
     e.preventDefault()
-
+    console.log(state.guessedLetters)
     const inputIsCorrect = checkInput(el.inputEl.value)
 
     if (el.inputEl.value) {
