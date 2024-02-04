@@ -32,16 +32,16 @@ function createElements() {
   wordContainerEl.classList.add('word')
 
   const wrongAnswerAudioEl: HTMLAudioElement = document.createElement('audio')
-  wrongAnswerAudioEl.setAttribute('src', 'src/assets/sound/wrongAnswer.wav')
+  wrongAnswerAudioEl.setAttribute('src', '/sound/wrongAnswer.wav')
 
   const correctAnswerAudioEl: HTMLAudioElement = document.createElement('audio')
-  correctAnswerAudioEl.setAttribute('src', 'src/assets/sound/correctAnswer.wav')
+  correctAnswerAudioEl.setAttribute('src', '/sound/correctAnswer.wav')
 
   const applauseAudioEl: HTMLAudioElement = document.createElement('audio')
-  applauseAudioEl.setAttribute('src', 'src/assets/sound/applause.wav')
+  applauseAudioEl.setAttribute('src', '/sound/applause.wav')
 
   const loseAudioEl: HTMLAudioElement = document.createElement('audio')
-  loseAudioEl.setAttribute('src', 'src/assets/sound/lose.wav')
+  loseAudioEl.setAttribute('src', '/sound/lose.wav')
 
   return {
     containerEl,
