@@ -127,7 +127,6 @@ export function renderForm(): void {
 
   el.formEl.addEventListener('submit', (e) => {
     e.preventDefault()
-    console.log(state.guessedLetters)
     const inputIsCorrect = checkInput(el.inputEl.value)
 
     if (el.inputEl.value) {
