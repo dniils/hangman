@@ -1,7 +1,7 @@
 import { el } from './elements'
 
-export function renderWord(word: string[]) {
-  word.forEach(() => {
+export function renderWord(word: string) {
+  word.split('').forEach(() => {
     const letterElWrapper = document.createElement('li')
     const letterElAfterEl = document.createElement('span')
     const letterEl = document.createElement('span')

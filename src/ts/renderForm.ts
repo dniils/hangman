@@ -1,9 +1,10 @@
 import { el } from './elements'
 import { checkInput } from './checkInput'
-import { wordToGuess } from './api'
 import { MAX_ATTEMPTS } from './constants'
 import { restartGame } from './restartGame'
 import { state } from './state'
+import { playSound } from './playSound'
+import { addAnimation } from './addAnimation'
 
 function showErrorMessage(): void {
   el.errorMsgEl.textContent = 'Please, try English letter'
@@ -17,16 +18,17 @@ function hideErrorMessage(): void {
   el.inputEl.classList.remove('input_error')
 }
 
-function openLetter(word: string[]): boolean {
+function openLetter(word: string): boolean {
   // TODO: check for already opened letters
   const wordLetters = Array.from(document.querySelectorAll('.word__letter'))
   const letterValue = el.inputEl.value
   const matches: boolean[] = []
 
-  word.forEach((letter, index) => {
+  word.split('').forEach((letter, index) => {
     if (letterValue === letter) {
       wordLetters[index].textContent = letter
       matches.push(true)
+      playSound(el.correctAnswerAudioEl)
     } else {
       matches.push(false)
     }
@@ -45,10 +47,8 @@ function checkGameStatus() {
     .join('')
 
   if (state.failedAttempts === MAX_ATTEMPTS) {
-    console.log('you lost')
     handleGameLoss()
-  } else if (word === wordToGuess.join('')) {
-    console.log('you won')
+  } else if (state.wordToGuess && word === state.wordToGuess) {
     handleGameWin()
   }
 }
@@ -66,6 +66,7 @@ function handleGameLoss(): void {
   } else {
     handleGameEnd()
     el.inputEl.value = '💀'
+    playSound(el.loseAudioEl)
   }
 }
 
@@ -75,11 +76,14 @@ function handleGameWin(): void {
   } else {
     handleGameEnd()
     el.inputEl.value = '😍'
+    playSound(el.applauseAudioEl)
   }
 }
 
 function handleWrongAnswer(): void {
   state.failedAttempts++
+  playSound(el.wrongAnswerAudioEl)
+  addAnimation(el.wordContainerEl, 'wrong-answer-animation')
 
   const attemptLiEls = Array.from(document.querySelectorAll('.attempts__item'))
 
@@ -108,12 +112,14 @@ export function renderForm(): void {
 
     if (el.inputEl.value) {
       if (inputIsCorrect) {
-        const failedAttempt = !openLetter(wordToGuess) && el.inputEl.value
+        const failedAttempt =
+          state.wordToGuess &&
+          !openLetter(state.wordToGuess) &&
+          el.inputEl.value
         hideErrorMessage()
         el.inputEl.value = ''
 
         if (failedAttempt) {
-          console.log('wrong guess!')
           handleWrongAnswer()
         }
       } else {

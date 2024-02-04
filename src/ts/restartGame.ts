@@ -1,5 +1,5 @@
-import { wordToGuess } from './api'
 import { el } from './elements'
+import { getWord } from './getWord'
 import { renderWord } from './renderWord'
 import { state } from './state'
 
@@ -13,7 +13,7 @@ function clearAttemptsBar(): void {
   )
 }
 
-export function restartGame() {
+export async function restartGame() {
   state.failedAttempts = 0
   state.gameStatus = 0
   el.inputEl.value = ''
@@ -24,6 +24,10 @@ export function restartGame() {
   el.wordContainerEl.innerHTML = ''
   el.inputEl.focus()
 
-  renderWord(wordToGuess)
+  state.wordToGuess = await getWord()
+
+  if (state.wordToGuess) {
+    renderWord(state.wordToGuess)
+  }
   clearAttemptsBar()
 }

@@ -1,0 +1,23 @@
+@keyframes wrong {
+  0% {
+    transform: translateX(0);
+  }
+  10% {
+    transform: translateX(0.4rem);
+  }
+  25% {
+    transform: translateX(-0.3rem);
+  }
+  50% {
+    transform: translateX(0rem);
+  }
+  75% {
+    transform: translateX(0.3rem);
+  }
+  90% {
+    transform: translateX(-0.4rem);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
