@@ -21,7 +21,7 @@ function hideErrorMessage(): void {
 function openLetter(word: string): boolean {
   // TODO: check for already opened letters
   const wordLetters = Array.from(document.querySelectorAll('.word__letter'))
-  const letterValue = el.inputEl.value
+  const letterValue = el.inputEl.value.toLowerCase()
   const matches: boolean[] = []
 
   word.split('').forEach((letter, index) => {
