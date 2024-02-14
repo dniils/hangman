@@ -4,6 +4,9 @@ function createElements() {
   const containerEl: HTMLElement = document.createElement('main')
   containerEl.classList.add('container')
 
+  const gameContainerEl: HTMLDivElement = document.createElement('div')
+  gameContainerEl.classList.add('game-container')
+
   const formEl: HTMLFormElement = document.createElement('form')
   formEl.setAttribute('action', 'submit')
   formEl.classList.add('form')
@@ -43,8 +46,15 @@ function createElements() {
   const loseAudioEl: HTMLAudioElement = document.createElement('audio')
   loseAudioEl.setAttribute('src', '/sound/lose.wav')
 
+  const wrongLettersContainerEl: HTMLDivElement = document.createElement('div')
+  wrongLettersContainerEl.classList.add('used-letters')
+
+  const wrongLettersEl: HTMLSpanElement = document.createElement('span')
+  wrongLettersEl.classList.add('used-letters__letters')
+
   return {
     containerEl,
+    gameContainerEl,
     formEl,
     inputEl,
     buttonEl,
@@ -52,6 +62,8 @@ function createElements() {
     inputWrapperEl,
     attemptsBarEl,
     wordContainerEl,
+    wrongLettersContainerEl,
+    wrongLettersEl,
     correctAnswerAudioEl,
     wrongAnswerAudioEl,
     applauseAudioEl,

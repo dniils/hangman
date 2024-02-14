@@ -120,7 +120,8 @@ export function renderForm(): void {
 
   el.inputWrapperEl.append(el.errorMsgEl, el.inputEl)
   el.formEl.append(el.inputWrapperEl, el.buttonEl)
-  el.containerEl.append(el.formEl)
+  el.gameContainerEl.append(el.formEl)
+  el.containerEl.appendChild(el.gameContainerEl)
   body?.prepend(el.containerEl)
 
   el.inputEl.focus()
@@ -136,11 +137,14 @@ export function renderForm(): void {
           !openLetter(state.wordToGuess) &&
           el.inputEl.value
         hideErrorMessage()
-        el.inputEl.value = ''
 
         if (failedAttempt) {
+          if (!el.wrongLettersEl.textContent?.includes(el.inputEl.value))
+            el.wrongLettersEl.textContent += el.inputEl.value
           handleWrongAnswer()
         }
+
+        el.inputEl.value = ''
       } else {
         showErrorMessage()
       }

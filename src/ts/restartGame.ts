@@ -1,17 +1,9 @@
+import { clearAttemptsBar } from './clearAttemptsBar'
+import { clearUsedLetters } from './clearUsedLetters'
 import { el } from './elements'
 import { getWord } from './getWord'
 import { renderWord } from './renderWord'
 import { state } from './state'
-
-function clearAttemptsBar(): void {
-  Array.from(Array.from(el.attemptsBarEl.childNodes) as HTMLElement[]).forEach(
-    (el) => {
-      if (el.classList.contains('attempts__item_active')) {
-        el.classList.remove('attempts__item_active')
-      }
-    }
-  )
-}
 
 export async function restartGame() {
   state.failedAttempts = 0
@@ -34,4 +26,5 @@ export async function restartGame() {
   el.inputEl.focus()
 
   clearAttemptsBar()
+  clearUsedLetters()
 }

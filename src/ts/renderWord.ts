@@ -13,5 +13,5 @@ export function renderWord(word: string) {
     el.wordContainerEl.appendChild(letterElWrapper)
   })
 
-  el.containerEl.insertBefore(el.wordContainerEl, el.formEl)
+  el.gameContainerEl.insertBefore(el.wordContainerEl, el.formEl)
 }

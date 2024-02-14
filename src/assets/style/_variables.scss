@@ -1,0 +1,31 @@
+:root {
+  --gray-100: #fafafa;
+  --gray-200: #ececec;
+  --gray-300: #dfdfdf;
+  --gray-400: #ccc;
+  --gray-500: #202020;
+  --red: #cd5c5c;
+  --red-transparent: #cd5c5c54;
+
+  --game-container-box-shadow: 0 4px 10px 0 #0000000d;
+
+  --line-through-color: var(--red);
+  --used-letter-color: var(--gray-500);
+
+  --attempt-bg: var(--gray-200);
+  --attempt-bg-active: var(--red);
+
+  --error-msg-color: var(--red);
+
+  --word-letter-underline: var(--gray-400);
+  --word-letter-unguessed: var(--gray-400);
+
+  --input-border-color: var(--gray-400);
+  --input-border-color-error: var(--red);
+  --input-boxshadow: 0px 3px 7px 0px #00000021;
+  --input-boxshadow-error: 0px 3px 7px 0px var(--red-transparent);
+
+  --button-bg: var(--gray-200);
+  --button-bg-hover: var(--gray-300);
+  --button-bg-disabled: var(--gray-100);
+}

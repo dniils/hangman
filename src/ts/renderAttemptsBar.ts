@@ -8,5 +8,5 @@ export function renderAttemptsBar(): void {
     el.attemptsBarEl.appendChild(attemptLiEl)
   }
 
-  el.containerEl.prepend(el.attemptsBarEl)
+  el.gameContainerEl.prepend(el.attemptsBarEl)
 }
