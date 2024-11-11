@@ -1,9 +1,4 @@
-interface StateI {
-  failedAttempts: number
-  gameStatus: number
-  wordToGuess: string | undefined
-  guessedLetters: string[]
-}
+import { StateI } from '../types/StateI'
 
 export const state: StateI = {
   failedAttempts: 0,
