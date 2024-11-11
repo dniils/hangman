@@ -3,5 +3,5 @@ import { fetchWord } from './api'
 
 export async function getWord(): Promise<string | undefined> {
   const wordToGuess: ResponseI | undefined = await fetchWord()
-  return wordToGuess?.word.toLowerCase().trim()
+  return wordToGuess?.word[0].toLowerCase().trim()
 }

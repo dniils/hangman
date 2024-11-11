@@ -1,3 +1,3 @@
 export interface ResponseI {
-  word: string
+  word: string[]
 }
