@@ -7,10 +7,14 @@ import { el } from './elements'
 
 export async function init(): Promise<void> {
   state.wordToGuess = await getWord()
-  renderForm()
-  if (state.wordToGuess) renderWord(state.wordToGuess)
-  renderAttemptsBar()
 
-  el.wrongLettersContainerEl.appendChild(el.wrongLettersEl)
-  el.gameContainerEl.prepend(el.wrongLettersContainerEl)
+  if (state.wordToGuess) {
+    renderForm()
+    renderWord(state.wordToGuess)
+    renderAttemptsBar()
+    el.wrongLettersContainerEl.appendChild(el.wrongLettersEl)
+    el.gameContainerEl.prepend(el.wrongLettersContainerEl)
+  } else {
+    // TODO: show error message in interface
+  }
 }
