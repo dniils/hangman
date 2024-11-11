@@ -206,5 +206,9 @@ input {
 }
 
 .wrong-answer-animation {
-  animation: wrong 0.2s;
+  animation: shakeHorizontal 0.2s;
+}
+
+.attention-animation {
+  animation: scaleUp 0.2s;
 }

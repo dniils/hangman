@@ -139,9 +139,15 @@ export function renderForm(): void {
         hideErrorMessage()
 
         if (failedAttempt) {
-          if (!el.wrongLettersEl.textContent?.includes(el.inputEl.value))
+          const wrongLetterAlreadyUsed =
+            el.wrongLettersEl.textContent?.includes(el.inputEl.value)
+
+          if (wrongLetterAlreadyUsed) {
+            addAnimation(el.wrongLettersContainerEl, 'attention-animation')
+          } else {
             el.wrongLettersEl.textContent += el.inputEl.value
-          handleWrongAnswer()
+            handleWrongAnswer()
+          }
         }
 
         el.inputEl.value = ''
